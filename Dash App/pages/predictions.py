@@ -3,32 +3,12 @@ import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+import pandas as pd
 from dash.dependencies import Input, Output, State
 from joblib import load
-import pandas as pd
 
 # Imports from this application
 from app import app
-
-model = load('assets/regression.joblib')
-
-@app.callback(
-    Output('prediction-content', 'children'),
-            [
-                Input('blurb', 'value'),
-                Input('state', 'value'),
-                Input('binary_state', 'value'),
-            ]
-)
-
-def predict(blurb, state, binary_state):
-    df = pd.DataFrame(
-        columns=['blurb', 'state', 'binary_state'],
-        data=[[blurb, state, binary_state]]
-    )
-
-    y_pred = model.predict(df)[0]
-    return f'Prediction ---> {y_pred}'
 
 # 2 column layout. 1st column width = 4/12
 # https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
@@ -53,36 +33,61 @@ column1 = dbc.Col(
             """
         )
         # ,
-        # html.H2('Predicted Kickstarter Success', className='mb-5'),
+        # html.H2('Predicted Kickstarter Success:', className='mb-5'),
         # html.Div(id='prediction-content', className='lead')
     ],
-    md=4,
+    md=4
 )
 
 column2 = dbc.Col(
     [
         dcc.Markdown('#### **Enter blurb below**'),
-        html.Div([
             dcc.Textarea(
-            id='blurb',
+            id='blurb-input',
             placeholder='Enter a description...',
             value='Ex: Sneak in, find treasures, avoid cats and collect the loot before time runs out!',
             style={'width': '75%', 'height': 125},
-            className='mb-5',
-        )
-        html.Button('Submit', id='blurb-button', n_clicks=0),
+            maxLength=100
+        ),
+        html.Button('Submit', id='blurb-button', n_clicks=1),
+        html.H2('Predicted Kickstarter Success:', className='mb-5'),
         html.Div(id='prediction-content', className='lead')
-        ])
-    ]
+    ],
+    md=5
 )
+
+layout = dbc.Row([column1, column2])
+
+model = load('assets/regression.joblib')
 
 @app.callback(
     Output('prediction-content', 'children'),
-    [Input('blurb-button', 'n_clicks')],
-    [State('blurb', 'value')]
+            [
+                # Input('blurb', 'value'),
+                Input('blurb-button', 'n_clicks')
+            ],
+            [State('blurb-input', 'value')]
 )
-def update_output(n_clicks, value):
-    if n_clicks > 0:
-        return 'You have entered: \n{}'.format(value)
 
-layout = dbc.Row([column1, column2])
+# def predict(blurb):
+#     df = pd.DataFrame(
+#         columns=['blurb'],
+#         data=[[blurb]]
+#     )
+
+#     y_pred = model.predict(df)[0]
+#     return f'Prediction ---> {y_pred}'
+
+def predict(clicked, text):
+    if clicked:
+        text = [text]
+        y_pred = model.predict(text)
+        # return f'{y_pred}'
+        if y_pred > .50:
+            y_pred = 'Successful'
+            return f'{y_pred}'
+        elif y_pred < .50:
+            y_pred = 'Failed'
+            return f'{y_pred}'
+        else:
+            return f'Try new blurb'
