@@ -13,6 +13,7 @@ plotly = "*"
 pandas = "*"
 pipfile = "*"
 joblib = "*"
+sklearn = "*"
 
 [requires]
 python_version = "3"
