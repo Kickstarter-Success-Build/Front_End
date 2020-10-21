@@ -35,9 +35,14 @@ footer = dbc.Container(
         dbc.Col(
             html.P(
                 [
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/Kickstarter-Success-Build/front-end'),
-                    html.Span('Ahmed Hadri -', className='mr-2'), 
-                    html.Span('Lester Gomez -', className='mr-2'), 
+                    html.Span('Organization', className='mr-2'),
+                    html.A(html.I(className='fab fa-github mr-1'), href='https://github.com/Kickstarter-Success-Build/front-end'),
+                    # html.Span('Ahmed Hadri -', className='mr-2'),
+                    html.Span('|', className='mr-1'),
+                    html.Span('Lester Gomez', className='mr-2'),
+                    html.A(html.I(className='fab fa-linkedin-in mr-1'), href='https://www.linkedin.com/in/lg17/'),
+                    html.A(html.I(className='fab fa-twitter mr-1'), href='https://twitter.com/_machine17'), 
+                    html.Span('|', className='mr-1'),
                     html.Span('Steven Lee', className='mr-2'),
                 ], 
                 className='lead'

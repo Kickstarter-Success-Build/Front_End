@@ -45,7 +45,7 @@ column2 = dbc.Col(
             dcc.Textarea(
             id='blurb-input',
             placeholder='Enter a description...',
-            value='Ex: Sneak in, find treasures, avoid cats and collect the loot before time runs out!',
+            value='Example Blurb: Sneak in, find treasures, avoid cats and collect the loot before time runs out!',
             style={'width': '75%', 'height': 125},
             maxLength=100
         ),
