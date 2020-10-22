@@ -54,13 +54,14 @@ column2 = dbc.Col(
         dcc.Markdown(
             """
             ## **Prediction**
-            We trained a model using logistic regression from scikit-learn. It gave us the best
-            accuracy score from other models we used. Such as, neural networks and a lighter
-            version. Logistic regression gives us a 67% accuracy whereas neural networks is 51%
-            and that's a big jump from a simple and easy to use machine learning model. We
-            needed a bigger dataset for our neural network model to work as intended. 
-            Additionally, we started off with a baseline accuracy of 55% before training the
-            models.
+            We trained a model using logistic regression from scikit-learn. It
+            gave us the best accuracy score from other models we used. Such as,
+            neural networks and a lighter version. Logistic regression gives us
+            a 67% accuracy whereas neural networks is 51% and that's a big jump
+            from a simple and easy to use machine learning model. We needed a
+            bigger dataset for our neural network model to work as intended.
+            Additionally, we started off with a baseline accuracy of 55% before
+            training the models.
             """
         ),
     ],
@@ -72,13 +73,15 @@ column3 = dbc.Col(
         dcc.Markdown(
             """
             ## **Summary**
-            The dataset we worked on for this application comes from Kaggle and it is from 2017,
-            and it contains about 200k projects. Also, it contains the 4000 most successful
-            kickstarters. Anyway, the majority of the projects failed which is unfortunate.
-            Kickstarter receives billions every year in pledges from thousands of backers
-            to fund projects. This app predicts who were successful and those that failed by
-            just entering their statement. To be successful, however, it means they got funded.
-            Even more so past the asking funding amount.
+            The dataset we worked on for this application comes from Kaggle and
+            it is from 2017, and it contains about 200k projects. Also, it
+            contains the 4000 most successful kickstarters. Anyway, the
+            majority of the projects failed which is unfortunate. Kickstarter
+            receives billions every year in pledges from thousands of backers
+            to fund projects. This app predicts who were successful and those
+            that failed by just entering their statement. To be successful,
+            however, it means they got funded. Even more so past the asking
+            funding amount.
             """
         )
     ],
