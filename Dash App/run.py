@@ -78,10 +78,10 @@ def display_page(pathname):
         return index.layout
     elif pathname == '/predictions':
         return predictions.layout
-    elif pathname == '/insights':
-        return insights.layout
-    elif pathname == '/process':
-        return process.layout
+    # elif pathname == '/insights':
+    #     return insights.layout
+    # elif pathname == '/process':
+    #     return process.layout
     else:
         return dcc.Markdown('## Page not found')
 
