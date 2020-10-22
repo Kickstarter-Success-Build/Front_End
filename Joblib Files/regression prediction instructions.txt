@@ -1,5 +1,0 @@
-pipeNew = joblib.load('example.joblib')
-pipeNew.predict(['This is my description'])
-
-# Don't do this
-pipeNew.predict('this is just a string')

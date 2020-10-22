@@ -1,88 +1,113 @@
-# Imports from 3rd party libraries
+# Imports from other .py files
+from app import app
+from joblib import load
+# from .keras_model import create_end_to_end_model
+
+from dash.dependencies import Input, Output, State
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+# import numpy as np
 import pandas as pd
-from dash.dependencies import Input, Output, State
-from joblib import load
-
-# Imports from this application
-from app import app
 
 # 2 column layout. 1st column width = 4/12
 # https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
+
+# Styling the submit button
+button_style = {
+  'background-color': '#226be8',
+  'border': 'none',
+  'color': 'white',
+  'width': '100%',
+  'padding': '12px 28px',
+  'text-align': 'center',
+  'text-decoration': 'none',
+  'display': 'inline-block',
+  'font-size': '14px',
+  'margin': '4px 2px',
+  'cursor': 'pointer',
+  'border-radius': '12px',
+  'box-shadow': '0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19)'
+}
+
 column1 = dbc.Col(
     [
-        # """image"""
-        # html.Img(src='assets/car crash.jpg', className='img-fluid'),
-
-        dcc.Markdown(
-            """
-
-            ## **Make Predictions**
-
-            """
+        dcc.Markdown('##### **Enter a short description below**'),
+        dcc.Textarea(
+            id='blurb_input',
+            value='Example Kickstarter Blurb: Sneak in, find treasures, avoid cats and collect the loot before time runs out!',
+            style={'width': '100%', 'height': 100},
+            maxLength=180
         ),
-
-        dcc.Markdown(
-            """
-
-            Below is the prediction:
-
-            """
-        )
-        # ,
-        # html.H2('Predicted Kickstarter Success:', className='mb-5'),
-        # html.Div(id='prediction-content', className='lead')
-    ],
-    md=4
-)
-
-column2 = dbc.Col(
-    [
-        dcc.Markdown('#### **Enter blurb below**'),
-            dcc.Textarea(
-            id='blurb-input',
-            placeholder='Enter a description...',
-            value='Example Blurb: Sneak in, find treasures, avoid cats and collect the loot before time runs out!',
-            style={'width': '75%', 'height': 125},
-            maxLength=100
-        ),
-        html.Button('Submit', id='blurb-button', n_clicks=1),
-        html.H2('Predicted Kickstarter Success:', className='mb-5'),
+        html.Button('Submit', id='blurb_button', n_clicks=0, className='ml-0',
+                    style=button_style),
+        html.Div(id='advise-user'),
+        html.H5('Predicted Kickstarter Success', className='mt-1'),
         html.Div(id='prediction-content', className='lead')
     ],
     md=5
 )
 
-layout = dbc.Row([column1, column2])
+# Main - user input dash component
+column2 = dbc.Col(
+    [
+        dcc.Markdown(
+            """
+            ## **Judgment**
+            <text>
+            """
+        ),
 
-model = load('assets/regression.joblib')
-
-@app.callback(
-    Output('prediction-content', 'children'),
-            [
-                # Input('blurb', 'value'),
-                Input('blurb-button', 'n_clicks')
-            ],
-            [State('blurb-input', 'value')]
+        dcc.Markdown(
+            """
+            <placeholder>
+            """
+        )
+    ],
+    md=4
 )
 
-# def predict(blurb):
-#     df = pd.DataFrame(
-#         columns=['blurb'],
-#         data=[[blurb]]
-#     )
+# Website layout
+layout = dbc.Row([column1, column2])
 
-#     y_pred = model.predict(df)[0]
-#     return f'Prediction ---> {y_pred}'
+# Loading the model from keras_model.py
+# model = create_end_to_end_model()
+# Saving min and max prediction output to a variable
+# MIN = 0.24284366
+# MAX = 0.46393377
 
-def predict(clicked, text):
+# Loading regression model from a joblib file
+model = load('assets/regression.joblib')
+
+
+# This callback is only used for button execution
+# and it advises the user
+@app.callback(
+    Output('advise-user', 'children'),
+    [Input('blurb_button', 'n_clicks')],
+    [State('blurb_input', 'value')]
+)
+# To let user know the button is working and
+# the entry is submitted
+def update_output(n_clicks, _):
+    if n_clicks > 0:
+        return f'Entry loaded! Button clicked {n_clicks} times.'
+
+
+# Calling textarea and button for user inputs
+@app.callback(
+    Output('prediction-content', 'children'),
+    [Input('blurb_button', 'n_clicks')],
+    [State('blurb_input', 'value')]
+)
+# Function to predict kickstarter blurbs
+def predict(clicked, value):
     if clicked:
-        text = [text]
+        text = [value]
         y_pred = model.predict(text)
-        # return f'{y_pred}'
+        # return f'{y_pred}' # For testing pred
+        # Replacing output with success or fail
         if y_pred > .50:
             y_pred = 'Successful'
             return f'{y_pred}'
