@@ -99,7 +99,7 @@ layout = dbc.Row([column2, column1, column3])
 # MAX = 0.46393377
 
 # Loading regression model from a joblib file
-model = load('assets/regression.joblib')
+model = load('assets/regression_lite.joblib')
 
 
 # This callback is only used for button execution

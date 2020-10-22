@@ -1,5 +1,5 @@
 from app import app, server
-from pages import index, predictions, insights, process
+from pages import index, predictions  # ,insights, process
 from dash.dependencies import Input, Output
 
 import dash
