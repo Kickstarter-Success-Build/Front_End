@@ -36,16 +36,16 @@ column1 = dbc.Col(
         dcc.Textarea(
             id='blurb_input',
             value='Example Kickstarter Blurb: Sneak in, find treasures, avoid cats and collect the loot before time runs out!',
-            style={'width': '100%', 'height': 100},
-            maxLength=180
+            style={'width': '100%', 'height': 150},
+            maxLength=280
         ),
         html.Button('Submit', id='blurb_button', n_clicks=0, className='ml-0',
                     style=button_style),
         html.Div(id='advise-user'),
-        html.H5('Predicted Kickstarter Success', className='mt-1'),
-        html.Div(id='prediction-content', className='lead')
+        html.H5('Predicted Kickstarter Success:', className='mt-1'),
+        html.Div(id='prediction-content', className='display-4')
     ],
-    md=5
+    md=4
 )
 
 # Main - user input dash component
@@ -53,22 +53,41 @@ column2 = dbc.Col(
     [
         dcc.Markdown(
             """
-            ## **Judgment**
-            <text>
+            ## **Prediction**
+            We trained a model using logistic regression from scikit-learn. It gave us the best
+            accuracy score from other models we used. Such as, neural networks and a lighter
+            version. Logistic regression gives us a 67% accuracy whereas neural networks is 51%
+            and that's a big jump from a simple and easy to use machine learning model. We
+            needed a bigger dataset for our neural network model to work as intended. 
+            Additionally, we started off with a baseline accuracy of 55% before training the
+            models.
             """
         ),
+    ],
+    md=4
+)
 
+column3 = dbc.Col(
+    [
         dcc.Markdown(
             """
-            <placeholder>
+            ## **Summary**
+            The dataset we worked on for this application comes from Kaggle and it is from 2017,
+            and it contains about 200k projects. Also, it contains the 4000 most successful
+            kickstarters. Anyway, the majority of the projects failed which is unfortunate.
+            Kickstarter receives billions every year in pledges from thousands of backers
+            to fund projects. This app predicts who were successful and those that failed by
+            just entering their statement. To be successful, however, it means they got funded.
+            Even more so past the asking funding amount.
             """
         )
     ],
     md=4
 )
 
+
 # Website layout
-layout = dbc.Row([column1, column2])
+layout = dbc.Row([column2, column1, column3])
 
 # Loading the model from keras_model.py
 # model = create_end_to_end_model()
