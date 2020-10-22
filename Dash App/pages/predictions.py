@@ -1,9 +1,8 @@
-# Imports from other .py files
 from app import app
 from joblib import load
 # from .keras_model import create_end_to_end_model
-
 from dash.dependencies import Input, Output, State
+
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
