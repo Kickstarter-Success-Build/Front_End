@@ -11,3 +11,11 @@ Kickstarter receives billions every year in pledges from thousands of backers
 to fund projects. This app predicts who were successful and those that failed by
 just entering their statement. To be successful, however, it means they got funded.
 Even more so past the asking funding amount.
+
+**Application usage:**
+
+- You want to predict if a Kickstarter you're planning to invest in might fail or succeed.
+- You want to test your Kickstarter statement and find out if you get a successful output.
+- Click the button below to find out results!
+
+[Link to app](https://kickstarter-success-prediction.herokuapp.com/)
