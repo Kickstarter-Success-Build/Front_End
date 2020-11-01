@@ -1,5 +1,7 @@
 # Kickstarter Success Prediction App
 
+<img src="https://raw.githubusercontent.com/Kickstarter-Success-Build/front-end/main/Dash%20App/assets/Inkedfailure-to-success_LI.jpg" width="1000" height="500">
+
 **Summary:**
 
 The dataset we worked on for this application comes from Kaggle and it is from 2017,
