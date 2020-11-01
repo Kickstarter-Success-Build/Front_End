@@ -16,6 +16,7 @@ Even more so past the asking funding amount.
 
 - You want to predict if a Kickstarter you're planning to invest in might fail or succeed.
 - You want to test your Kickstarter statement and find out if you get a successful output.
+
 Click the button below to find out results!
 
 [Link to app](https://kickstarter-success-prediction.herokuapp.com/)
